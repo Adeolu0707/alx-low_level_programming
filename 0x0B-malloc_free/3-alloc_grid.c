@@ -1,25 +1,42 @@
-
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
- *  * main - check the code for ALX School students.
- *   *
- *    * Return: Always 0.
- *     */
-int main(void)
+ *  * **alloc_grid - function to allocate memory to grid
+ *   * @width: int type
+ *    * @height: int type
+ *     * Return: grid of 0s
+ *      */
+int **alloc_grid(int width, int height)
 {
-	    char *s;
+	    int x, y;
+	        int **ptr;
 
-	        s = str_concat("Betty ", "ALX");
-		    if (s == NULL)
+		    if (width <= 0 || height <= 0)
 			        {
-					        printf("failed\n");
-						        return (1);
+					        return  (NULL);
+						    }
+		        ptr = malloc(height * sizeof(int *));
+			    if (ptr == NULL)
+				        {
+						        return (NULL);
 							    }
-		        printf("%s\n", s);
-			    free(s);
-			        return (0);
+			        for (x = 0; x < height; x++)
+					    {
+						            ptr[x] = malloc(width * sizeof(int));
+							            if (ptr[x] == NULL)
+									            {
+											                for (y = 0; y < x;  y++)
+														                free(ptr[y]);
+													            free(ptr);
+														                return (NULL);
+																        }
+								            for (y = 0; y < width; y++)
+										            {
+												                ptr[x][y] = 0;
+														        }
+									        }
+				    return (ptr);
 }
 
